@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Product Forecast Submitted - Enterprise Insights Dashboard{% endblock %}
+
+{% block head_extra %}
+  <!-- Light/Dark CSS for Submitted -->
+  <link id="css-light" rel="stylesheet" href="{{ url_for('static', filename='css/product_forecast_submitted-light.css') }}">
+  <link id="css-dark" rel="stylesheet" href="{{ url_for('static', filename='css/product_forecast_submitted-dark.css') }}" disabled>
+{% endblock %}
+
+{% block content %}
+<section class="page-content">
+  <section style="display: flex; align-items: center; justify-content: space-between;">
+    <h2 style="margin: 0;">📈 Product Forecast</h2>
+
+    <div style="flex: 1; text-align: center; font-size: 0.8rem; color: #555;">
+      <div class="filters-info">
+        <strong>Forecast Period:</strong> {{ forecast_period }}
+      </div>
+      {% if category or sub_category or product_name %}
+      <div style="margin-top: 4px; font-size: 0.75rem;" class="filters-info">
+        {% if category %}<strong>Category:</strong>  {{ category }}&nbsp;&nbsp;{% endif %}
+        {% if sub_category %}<strong>Sub-Category:</strong>  {{ sub_category }}&nbsp;&nbsp;{% endif %}
+        {% if product_name %}<strong>Product Name:</strong>  {{ product_name }}{% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <form method="post" action="" style="margin: 0;">
+      <button type="submit" name="reset" class="Btn">Reset</button>
+    </form>
+  </section>
+
+  <p class="analytics-text">Product Forecasting analytics will appear here.</p>
+</section>
+{% endblock %}

@@ -1,0 +1,11 @@
+body {
+  background-color: white;
+  color: #212529;
+}
+
+/* active nav link highlight */
+.nav-link.active {
+  background-color: #0d6efd;
+  color: white !important;
+  border-radius: 0.25rem;
+}

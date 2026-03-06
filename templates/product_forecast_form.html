@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Product Forecast - Enterprise Insights Dashboard{% endblock %}
+
+{% block head_extra %}
+  <!-- Light/Dark CSS for Form -->
+  <link id="css-light" rel="stylesheet" href="{{ url_for('static', filename='css/product_forecast_form-light.css') }}">
+  <link id="css-dark" rel="stylesheet" href="{{ url_for('static', filename='css/product_forecast_form-dark.css') }}" disabled>
+{% endblock %}
+
+{% block content %}
+<section class="page-content">
+  <h2>📈 Product Forecast</h2>
+  <form method="post" action="">
+    <div style="margin-bottom: 18px;">
+      <label for="forecast_period">Forecast Period (months):</label>
+      <input type="number" id="forecast_period" name="forecast_period" min="1" required value="{{ forecast_period or '' }}">
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <label for="category">Category:</label>
+      <input type="text" id="category" name="category" placeholder="Optional" value="{{ category or '' }}">
+    </div>
+
+    <div style="margin-bottom: 18px;">
+      <label for="sub_category">Sub-Category:</label>
+      <input type="text" id="sub_category" name="sub_category" placeholder="Optional" value="{{ sub_category or '' }}">
+    </div>
+
+    <div style="margin-bottom: 25px;">
+      <label for="product_name">Product Name:</label>
+      <input type="text" id="product_name" name="product_name" placeholder="Optional" value="{{ product_name or '' }}">
+    </div>
+
+    <button type="submit" name="submit" class="Btn">Submit</button>
+  </form>
+  <p>Product Forecasting analytics will appear here.</p>
+</section>
+{% endblock %}

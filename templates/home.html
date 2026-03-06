@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome to Warehouse Management</h2>
+<p>This application helps you manage warehouse data with several features. Here's a brief overview of the available sections:</p>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="col">
+    <a href="{{ url_for('home') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-house-door-fill me-2"></i>Home</h5>
+          <p class="card-text">The landing page providing an overview and navigation to all sections.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col">
+    <a href="{{ url_for('file_management') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-folder2-open me-2"></i>File Management</h5>
+          <p class="card-text">Upload, organize, and manage your warehouse files and folders with features like create, delete, and download.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col">
+    <a href="{{ url_for('product_forecast') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-bar-chart-line-fill me-2"></i>Product Forecast</h5>
+          <p class="card-text">View and analyze product-level demand forecasts to plan inventory effectively.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col">
+    <a href="{{ url_for('customer_forecast') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-people-fill me-2"></i>Customer Forecast</h5>
+          <p class="card-text">Access customer-specific demand forecasts to anticipate customer needs and improve service.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col">
+    <a href="{{ url_for('customer_product_forecast') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-person-badge-fill me-2"></i>Customer-Product Forecast</h5>
+          <p class="card-text">Get combined forecasts that show expected demand by customer and product pairs.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+  
+  <div class="col">
+    <a href="{{ url_for('store_forecast') }}" class="text-decoration-none text-reset">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title"><i class="bi bi-shop-window me-2"></i>Store Forecast</h5>
+          <p class="card-text">Monitor and forecast store-level demand to optimize stock and reduce shortages.</p>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.navbar-dark {
+  background-color: #1f1f1f !important;
+}
+
+.nav-link {
+  color: #bbb !important;
+}
+
+.nav-link.active {
+  background-color: #0d6efd;
+  color: white !important;
+  border-radius: 0.25rem;
+}
+
+.table {
+  color: #e0e0e0;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #1c1c1c;
+}
+
+.btn-link {
+  color: #f66 !important;
+}
+
+.btn-link:hover {
+  color: #faa !important;
+}

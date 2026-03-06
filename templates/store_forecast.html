@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Sales Forecast - Enterprise Insights Dashboard{% endblock %}
+
+{% block content %}
+<section class="page-content">
+    <h2>📊 Sales Forecast Dashboard</h2>
+    <h3>📈 Top Products by Predicted Sales</h3>
+    </form>
+    <div class="filter-group slider-group">
+        <label for="top-n-slider">Top N Products: <span id="top-n-value">{{ selected_top_n }}</span></label>
+        <input type="range" id="top-n-slider" name="top_n" min="5" max="30" step="1" value="{{ selected_top_n }}" oninput="document.getElementById('top-n-value').innerText = this.value" onchange="this.form.submit()">
+    </div>
+    </form>
+
+    <div class="charts-container">
+        <div class="chart-box">
+            {% if top_products_chart_html %}
+            {{ top_products_chart_html | safe }}
+            {% else %}
+            <p class="chart-placeholder">Loading Top Products chart...</p>
+            {% endif %}
+        </div>
+    </div>
+    <h3>📊 Sales Trend Forecast</h3>
+    <form id="dashboard-filters" method="GET" action="{{ url_for('store_forecast') }}" class="filters-form">
+        <div class="filter-group">
+            <label for="category-select">Category:</label>
+            <select id="category-select" name="category" onchange="this.form.submit()">
+                {% for cat in categories %}
+                <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="subcat-select">Sub-Category:</label>
+            <select id="subcat-select" name="subcat" onchange="this.form.submit()">
+                {% for subcat in available_subcategories %}
+                <option value="{{ subcat }}" {% if subcat == selected_subcategory %}selected{% endif %}>{{ subcat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label for="product-select">Product:</label>
+            <select id="product-select" name="product" onchange="this.form.submit()">
+                {% for prod in available_products %}
+                <option value="{{ prod }}" {% if prod == selected_product %}selected{% endif %}>{{ prod }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </form>
+    </div>
+    <div class="chart-box">
+        {% if trend_chart_html %}
+        {{ trend_chart_html | safe }}
+        {% else %}
+        <p class="chart-placeholder">Loading Trend chart...</p>
+        {% endif %}
+    </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Basic styling for the dashboard elements */
+    .page-content {
+        padding: 20px;
+        background-color: var(--background-color-light);
+        /* Assuming a CSS variable from base.html */
+        border-radius: 8px;
+        box-shadow: var(--shadow-small);
+        /* Assuming a CSS variable from base.html */
+        margin-top: 20px;
+    }
+
+    .filters-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 30px;
+        padding: 15px;
+        background-color: var(--card-background-color);
+        /* Assuming a CSS variable */
+        border-radius: 8px;
+        box-shadow: var(--shadow-small);
+    }
+
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-group label {
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: var(--text-color);
+        /* Assuming a CSS variable */
+    }
+
+    .filter-group select,
+    .filter-group input[type="range"] {
+        padding: 8px 10px;
+        border: 1px solid var(--border-color);
+        /* Assuming a CSS variable */
+        border-radius: 4px;
+        background-color: var(--input-background-color);
+        /* Assuming a CSS variable */
+        color: var(--text-color);
+        min-width: 150px;
+    }
+
+    .slider-group {
+        min-width: 200px;
+        /* Adjust as needed for slider */
+    }
+
+    #top-n-value {
+        font-weight: normal;
+        margin-left: 5px;
+    }
+
+    .charts-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        /* Single column on small screens */
+        gap: 30px;
+    }
+
+    @media (min-width: 768px) {
+        .charts-container {
+            grid-template-columns: 1fr 1fr;
+            /* Two columns on larger screens */
+        }
+    }
+
+    .chart-box {
+        background-color: var(--card-background-color);
+        /* Assuming a CSS variable */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: var(--shadow-medium);
+        /* Assuming a CSS variable */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chart-box h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var(--heading-color);
+        /* Assuming a CSS variable */
+    }
+
+    /* Plotly charts themselves will fill their parent div */
+    .js-plotly-plot {
+        flex-grow: 1;
+        /* Allow plotly chart to take available height */
+    }
+
+    .chart-placeholder {
+        text-align: center;
+        color: var(--text-color-secondary);
+        /* Assuming a CSS variable */
+        padding: 50px;
+        font-style: italic;
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}

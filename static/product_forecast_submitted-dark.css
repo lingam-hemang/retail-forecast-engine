@@ -1,0 +1,101 @@
+.page-content {
+  background-color: #1A202C;
+  padding: 20px 30px;
+  border-radius: 8px;
+  max-width: 700px;
+  margin: 30px auto;
+  box-shadow: 0 4px 8px rgba(50, 50, 50, 0.7);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #E2E8F0;
+}
+
+section.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+h2 {
+  color: #63B3ED;
+  margin: 0;
+}
+
+.forecast-info {
+  font-size: 0.9em;
+  color: #90CDF4;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.forecast-info strong {
+  font-weight: 700;
+  color: #63B3ED;
+}
+
+form {
+  margin: 0;
+}
+
+button[type="submit"] {
+  background-color: #3182CE;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 1em;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #63B3ED;
+}
+
+p.analytics-text {
+  margin-top: 25px;
+  font-style: italic;
+  color: #90CDF4;
+}
+
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.forecast-info {
+  color: #63B3ED;
+  flex: 1;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Reset Button Styles - Dark Theme */
+.reset-button {
+  background-color: #3AB7D6; /* Bright teal */
+  color: #1E1E1E; /* Dark text for contrast */
+  border: none;
+  padding: 8px 16px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(58, 183, 214, 0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reset-button:hover,
+.reset-button:focus {
+  background-color: #2A96B8; /* Darker teal */
+  box-shadow: 0 4px 8px rgba(42, 150, 184, 0.7);
+  outline: none;
+}
+
+/* Filters info style - same font as title */
+.filters-info {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #e0e0e0;
+  margin-top: 4px;
+}

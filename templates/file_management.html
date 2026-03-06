@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>File Management</h2>
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb" class="mb-3">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ url_for('file_management') }}">Root</a></li>
+    {% for name, path in breadcrumbs %}
+      {% if loop.last %}
+        <li class="breadcrumb-item active text-decoration-underline fw-bold" aria-current="page">{{ name }}</li>
+      {% else %}
+        <li class="breadcrumb-item">
+          <a href="{{ url_for('file_management', subpath=path) }}">{{ name }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ol>
+</nav>
+
+<!-- Upload & Folder Form -->
+<div class="row mb-4 g-3 align-items-center">
+  <div class="col-md-7 col-12">
+    <form action="{{ url_for('file_management', subpath=current_path) }}" method="POST" enctype="multipart/form-data" class="d-flex align-items-center" style="gap: 0.5rem;">
+      <input type="hidden" name="action" value="upload" />
+      <input type="file" name="file" class="form-control" accept=".csv,.xlsx,.txt,.pdf" required style="height: 38px;" />
+      <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit" style="height: 38px; min-width: 100px;">
+        <i class="bi bi-upload me-1"></i> Upload
+      </button>
+    </form>
+  </div>
+  <div class="col-md-5 col-12">
+    <form action="{{ url_for('file_management', subpath=current_path) }}" method="POST" class="d-flex align-items-center" style="gap: 0.5rem;">
+      <input type="hidden" name="action" value="create_folder" />
+      <input type="text" name="folder_name" class="form-control" placeholder="New folder name" required pattern="[^\\/]+" title="Folder name cannot contain slashes" style="height: 38px;" />
+      <button class="btn btn-success" type="submit" style="height: 38px; white-space: nowrap;">
+        <i class="bi bi-folder-plus"></i> Create Folder
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- File Table -->
+{% if items %}
+<table class="table table-striped table-hover align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Name</th>
+      <th class="text-center">Size</th>
+      <th class="text-center">Last Modified</th>
+      <th class="text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in items %}
+    <tr>
+      <td>
+        {% if item.is_folder %}
+          <i class="bi bi-folder-fill text-warning me-2"></i>
+          <a href="{{ url_for('file_management', subpath=item.path) }}">{{ item.name }}</a>
+        {% else %}
+          <i class="bi bi-file-earmark-text-fill me-2"></i>
+          {{ item.name }}
+        {% endif %}
+      </td>
+      <td class="text-center">{{ item.size if item.size else "-" }}</td>
+      <td class="text-center">
+        {% if item.last_modified %}
+          {% if date_format == "relative" %}
+            {{ item.relative_modified }}
+          {% else %}
+            {% if item.last_modified is string %}
+              {{ item.last_modified }}
+            {% else %}
+              {{ item.last_modified.strftime(date_format | default('%Y-%m-%d %H:%M:%S')) }}
+            {% endif %}
+          {% endif %}
+        {% else %}
+          -
+        {% endif %}
+      </td>
+      <td class="text-center">
+        {% if not item.is_folder %}
+          <a href="{{ url_for('download_file', subpath=item.path) }}" class="btn btn-sm btn-success" title="Download">
+            <i class="bi bi-download"></i>
+          </a>
+        {% endif %}
+        {% if item.can_delete %}
+          <form action="{{ url_for('delete_file', subpath=item.path) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete {{ item.name }}?{% if item.is_folder %} (Folder must be empty){% endif %}');">
+            <button type="submit" class="btn btn-sm btn-danger" title="Delete {{ 'Folder' if item.is_folder else 'File' }}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<div class="alert alert-info">No files or folders found here.</div>
+{% endif %}
+{% endblock %}

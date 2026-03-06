@@ -1,0 +1,36 @@
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+.app-header {
+  background-color: #e3f2fd;
+}
+
+.app-name {
+  color: #0d6efd;
+}
+
+.navbar {
+  background: linear-gradient(to right, #0d6efd, #20c997) !important;
+  /* Optional vertical gradient:
+     background: linear-gradient(to bottom, #64b5f6, #2196f3) !important; */
+}
+
+.navbar-nav .nav-link {
+  color: #212529 !important;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link:focus {
+  color: #20c997 !important;
+}
+
+.navbar-nav .nav-link.active {
+  color: #fff !important;
+  background-color: #ff7f50;
+}
+
+#theme-toggle-btn {
+  color: #0d6efd;
+}
